@@ -1,0 +1,30 @@
+安装redis服务，修改为cluster方式，至少3台机器
+
+
+yum install gem
+修改gem源
+gem sources -a https://ruby.taobao.org
+安装 gem redis
+gem install redis
+
+部署目录：/usr/local下
+创建集群
+
+./redis-trib.rb create  10.133.157.235:6379 10.133.157.236:6379 10.133.157.237:6379
+
+查看redis集群信息
+./redis-trib.rb check 10.133.157.235:6379
+
+进入redis-cli， 查看
+./redis-cli -c
+cluster nodes
+
+
+添加一个主节点
+./redis-trib.rb add-node 127.0.0.1:7006
+
+对节点分布进行重新hash
+./redis-trib.rb reshard --from <node-id> --to <node-id> --slots <number of slots> --yes <host>:<port>
+
+添加一个slave节点
+./redis-trib.rb add-node --slave --master-id 3c3a0c74aae0b56170ccb03a76b60cfe7dc1912e 127.0.0.1:7006 127.0.0.1:7000
