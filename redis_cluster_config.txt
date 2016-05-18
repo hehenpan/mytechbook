@@ -1,30 +1,30 @@
-°²×°redis·şÎñ£¬ĞŞ¸ÄÎªcluster·½Ê½£¬ÖÁÉÙ3Ì¨»úÆ÷
+å®‰è£…redisæœåŠ¡ï¼Œä¿®æ”¹ä¸ºclusteræ–¹å¼ï¼Œè‡³å°‘3å°æœºå™¨
 
 
 yum install gem
-ĞŞ¸ÄgemÔ´
+ä¿®æ”¹gemæº
 gem sources -a https://ruby.taobao.org
-°²×° gem redis
+å®‰è£… gem redis
 gem install redis
 
-²¿ÊğÄ¿Â¼£º/usr/localÏÂ
-´´½¨¼¯Èº
+éƒ¨ç½²ç›®å½•ï¼š/usr/localä¸‹
+åˆ›å»ºé›†ç¾¤
 
 ./redis-trib.rb create  10.133.157.235:6379 10.133.157.236:6379 10.133.157.237:6379
 
-²é¿´redis¼¯ÈºĞÅÏ¢
+æŸ¥çœ‹redisé›†ç¾¤ä¿¡æ¯
 ./redis-trib.rb check 10.133.157.235:6379
 
-½øÈëredis-cli£¬ ²é¿´
+è¿›å…¥redis-cliï¼Œ æŸ¥çœ‹
 ./redis-cli -c
 cluster nodes
 
 
-Ìí¼ÓÒ»¸öÖ÷½Úµã
+æ·»åŠ ä¸€ä¸ªä¸»èŠ‚ç‚¹
 ./redis-trib.rb add-node 127.0.0.1:7006
 
-¶Ô½Úµã·Ö²¼½øĞĞÖØĞÂhash
+å¯¹èŠ‚ç‚¹åˆ†å¸ƒè¿›è¡Œé‡æ–°hash
 ./redis-trib.rb reshard --from <node-id> --to <node-id> --slots <number of slots> --yes <host>:<port>
 
-Ìí¼ÓÒ»¸öslave½Úµã
+æ·»åŠ ä¸€ä¸ªslaveèŠ‚ç‚¹
 ./redis-trib.rb add-node --slave --master-id 3c3a0c74aae0b56170ccb03a76b60cfe7dc1912e 127.0.0.1:7006 127.0.0.1:7000

@@ -1,0 +1,17 @@
+main.go
+
+_ "net/http/pprof"
+_ "runtime/pprof"
+
+
+go func() {
+		err := http.ListenAndServe(cfg.Prog.HealthPort, nil)
+		if err != nil {
+			logging.Error("ListenAndServe: %s", err.Error())
+		}
+	}()
+
+
+	
+
+go tool pprof  http://10.133.157.137:26061/debug/pprof/profile
